@@ -1,4 +1,3 @@
-import time
 from sqlalchemy.orm import Session
 
 from app.config import settings
@@ -39,7 +38,6 @@ def bulk_add_items(db: Session, slot_id: str, entries: list[ItemBulkEntry]) -> i
         db.add(item)
         added += 1
         db.commit()
-        time.sleep(0.05)  # demo: widens race window vs purchase
     return added
 
 
