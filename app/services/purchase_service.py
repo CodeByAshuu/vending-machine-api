@@ -6,10 +6,10 @@ from app.models import Item
 
 
 def purchase(db: Session, item_id: str, cash_inserted: int) -> dict:
-    item = db.query(Item).filter(Item.id == item_id).first()
+    item = db.query(Item).with_for_update().filter(Item.id == item_id).first()
     if not item:
         raise ValueError("item_not_found")
-    time.sleep(0.05)  # demo: widens race window for concurrent purchase/restock
+    # time.sleep(0.05) removed to fix race condition hehe
     if item.quantity <= 0:
         raise ValueError("out_of_stock")
     if cash_inserted < item.price:
