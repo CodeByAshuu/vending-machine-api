@@ -41,4 +41,6 @@ def change_breakdown(change: int) -> dict:
         if count > 0:
             result[str(d)] = count
             remaining -= count * d
+    if remaining > 0:
+        raise ValueError("cannot_make_change", remaining)
     return {"change": change, "denominations": result}
