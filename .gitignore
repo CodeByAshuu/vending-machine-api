@@ -1,8 +1,11 @@
 .idea
-venv
 __pycache__
 .kiro
 .vscode
-*.db
 *.sqlite3
 .cursor
+.venv/
+__pycache__/
+*.pyc
+*.db
+.env
