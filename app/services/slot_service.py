@@ -6,12 +6,12 @@ from app.schemas import SlotCreate, SlotFullView, SlotFullViewItem, SlotResponse
 
 
 def create_slot(db: Session, data: SlotCreate) -> Slot:
-    count = db.query(Slot).count()
-    if count >= settings.MAX_SLOTS:
-        raise ValueError("slot_limit_reached")
     existing = db.query(Slot).filter(Slot.code == data.code).first()
     if existing:
         raise ValueError("slot_code_exists")
+    count = db.query(Slot).count()
+    if count >= settings.MAX_SLOTS:
+        raise ValueError("slot_limit_reached")
     slot = Slot(code=data.code, capacity=data.capacity, current_item_count=0)
     db.add(slot)
     db.commit()
